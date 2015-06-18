@@ -7,12 +7,8 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
-# TODO: to resolve
-# try:
-#     import argparse
-#     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-# except ImportError:
-flags = None
+flags = tools.argparser.parse_args(args=[])
+
 
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'client_secret.json'
