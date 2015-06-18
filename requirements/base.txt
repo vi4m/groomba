@@ -3,4 +3,4 @@
 # to each package in each requirements/*.txt.
 
 django==1.8.2
-
+google-api-python-client
