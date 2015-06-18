@@ -3,7 +3,8 @@ import iso8601
 from datetime import datetime
 from django.views.generic import View
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from groomba.gcalendar.tasks import get_available_rooms, create_event
 
 
@@ -20,6 +21,10 @@ class AvailableRoomsView(View):
 
 
 class CreateEventView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CreateEventView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         start_string = self.request.POST.get('start')
