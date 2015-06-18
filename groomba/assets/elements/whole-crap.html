@@ -1,0 +1,72 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-icon-item.html">
+
+<dom-module id="whole-crap">
+  <style>
+  </style>
+  <template>
+
+    <paper-header-panel class="flex">
+      <paper-toolbar>
+          <div>App</div>
+      </paper-toolbar>
+      <paper-material elevation="4">
+        <paper-input-container inline>
+          <label>start date</label> <input id='start-date' value='2015-06-18' is="iron-input">
+        </paper-input-container>
+        -
+        <paper-input-container inline>
+          <label>start time</label> <input id='start-time' value='16:30' is="iron-input">
+        </paper-input-container>
+        <paper-input-container inline>
+          <label>end date</label> <input id='end-date' value='2015-06-18' is="iron-input">
+        </paper-input-container>
+        -
+        <paper-input-container inline>
+          <label>end date</label> <input id='end-time' value='17:30' is="iron-input">
+        </paper-input-container>
+
+        <paper-button on-click='searchRoom' id='search'>
+          <iron-icon icon="search"></iron-icon>
+          search free rooms
+        </paper-button>
+
+        <template is="dom-repeat" id="menu" items="{{rooms}}">
+          <paper-icon-item>
+            <div class="flex">{{item.name}}</div>
+            <paper-button on-click='searchRoom' id='search' value='{{item.id}}'>
+              <iron-icon icon="lock"></iron-icon>
+              book room
+            </paper-button>
+          </paper-icon-item>
+        </template>
+
+      </paper-material>
+    </paper-header-panel>
+
+  </template>
+  <script>
+    Polymer({
+      is: "whole-crap",
+      bookRoom: function () {
+        console.log('bookRoom');
+      },
+      searchRoom: function () {
+        console.log('searchRoom');
+        this.rooms = [{
+          'name': 'n1',
+          'id': 'id1'
+        }, {
+          'name': 'n2',
+          'id': 'id2'
+        }];
+      },
+      ready: function () {
+        this.rooms = [];
+      }
+    });
+  </script>
+</dom-module>
