@@ -13,6 +13,15 @@
   </style>
   <template>
     <div>
+
+            <iron-ajax
+                id='myajax'
+                url="http://127.0.0.1:8000/api/available-rooms/"
+                params='{}'
+                handle-as="json"
+                on-response="handleResponse"
+                debounce-duration="300"></iron-ajax>
+
             <!-- TODO: make it component, eg: date-range -->
             <paper-input-container inline>
               <label>start date</label> <input is="iron-input">
@@ -43,8 +52,14 @@
       //    value: "Hello!"
       //  }
       //},
+      handleResponse: function () {
+      },
       ready: function () {
+          //http://127.0.0.1:8000/api/available-rooms/2015-06-18T10:50:10.910Z/2015-06-18T15:50:10.910Z/
           this.$.search.addEventListener('click', function(e) {
+
+            //var dd = this.$.myajax
+            debugger;
             console.log('search clicked');
           });
       }
