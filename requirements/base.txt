@@ -2,8 +2,5 @@
 # After the first "pip install -r", just run "pip freeze" and add the version
 # to each package in each requirements/*.txt.
 
-django
-
-django-model-utils
-
-psycopg2
+django==1.8.2
+google-api-python-client
