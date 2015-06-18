@@ -11,3 +11,7 @@ class HomePageView(TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         #context['latest_articles'] = Article.objects.all()[:5]
         return context
+
+
+class FreeRoomsView(TemplateView):
+    template_name = "free-rooms.html"

@@ -5,6 +5,7 @@ from groomba.gcalendar.auth import get_service
 
 
 def get_available_rooms(start, end):
+    # create_meeting()
     service = get_service()
     calendars = get_calendars()
     calendars_dict = {}
@@ -42,3 +43,25 @@ def get_calendars():
         calendars = [{'id': calendar['id'], 'summary': calendar['summary']} for calendar in items['items']]
         cache.set('calendars', calendars, 3600)
     return calendars
+
+
+def create_event(start, end, room_id, summary, description):
+    # TODO: wyrzucic room_id
+    event = {
+        'summary': summary,
+        'description': description,
+        'start': {
+            'dateTime': start.isoformat(),
+        },
+        'end': {
+            'dateTime': end.isoformat(),
+        },
+        'attendees': [
+            {'email': room_id},
+        ],
+    }
+    # TODO: replace to logged user email
+    room_id = 'kamil.wargula@allegrogroup.com'
+    service = get_service()
+    event = service.events().insert(calendarId=room_id, body=event).execute()
+    return event

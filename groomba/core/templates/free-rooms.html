@@ -1,0 +1,96 @@
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <title>groomba</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+
+    <body class="fullbleed layout vertical">
+    {% csrf_token %}
+      <label>start date</label>
+      <input id='start-date' type="text" value="2015-06-21"></br>
+      <label>start time</label>
+      <input id='start-time' type="text" value="17:00"></br>
+
+
+      <label>end date</label>
+      <input id='end-date' type="text" value="2015-06-21"></br>
+      <label>END time</label>
+      <input id='end-time' type="text" value="19:00"></br>
+      <button id="search">search</button>
+
+      <h3>Available rooms</h3>
+      <ul>
+      </ul>
+      <script>
+
+        $( "body" ).on( "click", "#search", function() {
+
+            var startDate = $('#start-date')[0].value;
+            var endDate = $('#end-date')[0].value;
+            var startTime = $('#start-time')[0].value;
+            var endTime = $('#end-time')[0].value;
+
+            var start = new Date(startDate + ":" + startTime);
+            var end = new Date(endDate + ":" + endTime);
+            var url = "http://127.0.0.1:8000/api/available-rooms/" + start.toISOString() + "/" + end.toISOString() + "/";
+            $.ajax({
+              method: "GET",
+              url: url,
+            }).done(function( msg ) {
+                var rooms = msg.rooms;
+                var content = ""
+                for (var i = 0; i < rooms.length; i++) {
+                    console.log(rooms[i]);
+                    content = content + "<li>" + rooms[i].name + "<button id='get-it' data-id=" + rooms[i].id + ">get it</button></li>";
+                }
+                $('ul').html(content);
+                // debugger
+            });
+
+        });
+         $( "body" ).on( "click", "#get-it", function() {
+            // var room_id = $('#get-it').data('id')
+            var room_id = $(this).data().id;
+            var startDate = $('#start-date')[0].value;
+            var endDate = $('#end-date')[0].value;
+            var startTime = $('#start-time')[0].value;
+            var endTime = $('#end-time')[0].value;
+
+            var start = new Date(startDate + ":" + startTime);
+            var end = new Date(endDate + ":" + endTime);
+
+
+            var csrftoken = $("input[name]")[0].value;
+            $.ajax({
+              method: "POST",
+              data: {
+                'start': start.toISOString(),
+                'end': end.toISOString(),
+                'room_id': room_id,
+                'summary': 'Hello Google!',
+                'description': 'Hello Google!',
+              },
+              url: "http://127.0.0.1:8000/api/create-event/"
+            }).done(function( msg ) {
+                alert('event created')
+            });
+
+        });
+        // var csrftoken = $("input[name]")[0].value;
+        // function csrfSafeMethod(method) {
+        // // these HTTP methods do not require CSRF protection
+        //     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        // }
+        // $.ajaxSetup({
+        //     beforeSend: function(xhr, settings) {
+        //         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        //             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        //         }
+        //     }
+        // });
+
+      </script>
+    </body>
+</html>
