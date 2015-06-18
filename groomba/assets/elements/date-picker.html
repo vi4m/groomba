@@ -28,21 +28,25 @@
             <paper-input-container inline>
               <label>end date</label> <input is="iron-input">
             </paper-input-container>
-            <paper-button>
+            <paper-button id='search'>
               <iron-icon icon="search"></iron-icon>
               search free rooms
             </paper-button>
-
   </template>
   <script>
     Polymer({
       is: "date-picker",
-      properties: {
-        // declare properties for the element's public API
-        greeting: {
-          type: String,
-          value: "Hello!"
-        }
+      //properties: {
+      //  // declare properties for the element's public API
+      //  greeting: {
+      //    type: String,
+      //    value: "Hello!"
+      //  }
+      //},
+      ready: function () {
+          this.$.search.addEventListener('click', function(e) {
+            console.log('search clicked');
+          });
       }
     });
   </script>
