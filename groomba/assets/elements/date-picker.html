@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+
+<dom-module id="date-picker">
+  <style>
+    paper-input {
+        display: inline;
+        background-color: red;
+    }
+  </style>
+  <template>
+    <div>
+            <!-- TODO: make it component, eg: date-range -->
+            <paper-input-container inline>
+              <label>start date</label> <input is="iron-input">
+            </paper-input-container>
+            -
+            <paper-input-container inline>
+              <label>start time</label> <input is="iron-input">
+            </paper-input-container>
+            <paper-input-container inline>
+              <label>end date</label> <input is="iron-input">
+            </paper-input-container>
+            -
+            <paper-input-container inline>
+              <label>end date</label> <input is="iron-input">
+            </paper-input-container>
+            <paper-button id='search'>
+              <iron-icon icon="search"></iron-icon>
+              search free rooms
+            </paper-button>
+  </template>
+  <script>
+    Polymer({
+      is: "date-picker",
+      //properties: {
+      //  // declare properties for the element's public API
+      //  greeting: {
+      //    type: String,
+      //    value: "Hello!"
+      //  }
+      //},
+      ready: function () {
+          this.$.search.addEventListener('click', function(e) {
+            console.log('search clicked');
+          });
+      }
+    });
+  </script>
+</dom-module>
