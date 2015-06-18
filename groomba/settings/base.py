@@ -91,6 +91,7 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = (
     root('templates'),
+    root('core/templates'),
 )
 
 
