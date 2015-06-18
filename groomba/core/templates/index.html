@@ -32,9 +32,8 @@
     <iron-ajax
         id="bookajax"
         url=""
+        contentType="application/json"
         method="POST"
-        handle-as="json"
-        on-response="hresponse"
         debounce-duration="300">
     </iron-ajax>
 
@@ -125,7 +124,7 @@
         'description': 'sample event'
       };
       console.log(data);
-      this.$.bookajax.body = data;
+      this.$.bookajax.body = JSON.stringify(data);
       this.$.bookajax.generateRequest();
     },
     setajax: function () {

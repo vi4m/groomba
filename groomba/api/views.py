@@ -1,5 +1,6 @@
 import pytz
 import iso8601
+import json
 from datetime import datetime
 from django.views.generic import View
 from django.http import JsonResponse
@@ -27,11 +28,12 @@ class CreateEventView(View):
         return super(CreateEventView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        start_string = self.request.POST.get('start')
-        end_string = self.request.POST.get('end')
-        room_id = self.request.POST.get('room_id')
-        summary = self.request.POST.get('summary')
-        description = self.request.POST.get('description')
+        data = json.loads(self.request.body.decode())
+        start_string = data.get('start')
+        end_string = data.get('end')
+        room_id = data.get('room_id')
+        summary = data.get('summary')
+        description = data.get('description')
         start = iso8601.parse_date(start_string)
         end = iso8601.parse_date(end_string)
 
