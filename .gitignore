@@ -58,9 +58,6 @@ venv
 groomba/settings/local.py
 groomba/settings/production.py
 
-# collect static output directory
-groomba/assets/
-groomba/static/
 
 .DS_Store
 
